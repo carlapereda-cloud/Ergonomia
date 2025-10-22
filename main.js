@@ -21,8 +21,7 @@ async function crearDetectorManos() {
     handLandmarker = await HandLandmarker.createFromOptions(vision, {
         baseOptions: {
             // Le decimos dónde está el "cerebro" (el archivo .task)
-            modelAssetPath: `https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/latest/hand_landmarker.task`,
-            delegate: "GPU", // Usar la tarjeta gráfica (es más rápido)
+            modelAssetPath: `https://storage.googleapis.com/mediapipe-models/hand_landmarker/hand_landmarker/float16/1/hand_landmarker.task`, // Usar la tarjeta gráfica (es más rápido)
         },
         runningMode: "VIDEO", // Le decimos que analizaremos un video
         numHands: 2, // Queremos detectar hasta 2 manos
@@ -89,4 +88,5 @@ function dibujarPuntosMano(landmarks) {
 }
 
 // ¡¡Empezar todo!!
+
 crearDetectorManos();
