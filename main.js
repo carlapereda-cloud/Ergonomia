@@ -67,12 +67,16 @@ function iniciarDeteccion() {
                 radius: 5,
                 // Truco para voltear el dibujo y que coincida con el video-espejo
                 projection: (point) => {
-                    return [
-                        (1 - point.x) * canvas.width,
-                        point.y * canvas.height,
-                        point.z
-                    ];
-                }
+    // Voltea el punto X de MediaPipe (0=izquierda, 1=derecha)
+    // para que coincida con el video volteado.
+    const x_flipped = (1 - point.x) * canvas.width;
+    const y_normal = point.y * canvas.height;
+    return [
+        x_flipped,
+        y_normal,
+        point.z
+    ];
+}
             });
             // Dibuja las líneas (el esqueleto)
             drawingUtils.drawConnectors(landmarks, PoseLandmarker.POSE_CONNECTIONS, {
@@ -94,3 +98,4 @@ function iniciarDeteccion() {
 
 // ¡¡Empezar todo!!
 crearDetectorPostura(); // NUEVO: Llamamos a la nueva función
+
